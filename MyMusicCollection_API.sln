@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyMusicCollection_API", "MyMusicCollection_API\MyMusicCollection_API.csproj", "{107C080A-96C6-456C-9E0B-C1A16886656C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{8F9E9DCA-2DC8-4789-B36C-CBF9649A0C0F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{107C080A-96C6-456C-9E0B-C1A16886656C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{107C080A-96C6-456C-9E0B-C1A16886656C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{107C080A-96C6-456C-9E0B-C1A16886656C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{107C080A-96C6-456C-9E0B-C1A16886656C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F9E9DCA-2DC8-4789-B36C-CBF9649A0C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F9E9DCA-2DC8-4789-B36C-CBF9649A0C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F9E9DCA-2DC8-4789-B36C-CBF9649A0C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F9E9DCA-2DC8-4789-B36C-CBF9649A0C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
