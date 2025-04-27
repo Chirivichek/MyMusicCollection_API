@@ -10,7 +10,5 @@ namespace MyMusicCollection_API.Models
         public string Comment { get; set; }
         public int UserId { get; set; } 
         public int AlbumId { get; set; } 
-        public User User { get; set; } 
-        public Album Album { get; set; } 
     }
 }

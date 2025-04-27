@@ -6,6 +6,8 @@ using AutoMapper;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using MyMusicCollection_API.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace MyMusicCollection_API.Controllers
 {
@@ -46,14 +48,63 @@ namespace MyMusicCollection_API.Controllers
             var result = mapper.Map<GetAllRatingAndReviewModel>(ratingAndReview);
             return Ok(result);
         }
+        //[HttpPost("CreateRatingAndReview")]
+        //public IActionResult CreateRatingAndReview(CreateRatingAndReviewModel model)
+        //{
+        //    // Logic to create a new rating and review
+        //    var ratingAndReview = mapper.Map<RatingAndReview>(model);
+        //    ctx.RatingsAndReviews.Add(ratingAndReview);
+        //    ctx.SaveChanges();
+        //    return Ok("Rating and review created successfully");
+        //}
+
         [HttpPost("CreateRatingAndReview")]
-        public IActionResult CreateRatingAndReview(CreateRatingAndReviewModel model)
+        public IActionResult CreateRatingAndReview(int UserId, int AlbumId, CreateRatingAndReviewModel model)
         {
             // Logic to create a new rating and review
+            var user = ctx.Users.Find(UserId);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            var album = ctx.Albums.Find(AlbumId);
+            if (album == null)
+            {
+                return NotFound("Album not found");
+            }
             var ratingAndReview = mapper.Map<RatingAndReview>(model);
+            ratingAndReview.UserId = UserId;
+            ratingAndReview.AlbumId = AlbumId;
             ctx.RatingsAndReviews.Add(ratingAndReview);
             ctx.SaveChanges();
             return Ok("Rating and review created successfully");
-        }   
+
+        }
+        [HttpPut("UpdateRatingAndReview/{id}")]
+        public IActionResult UpdateRatingAndReview(int id, UpdateRatingAndReviewModel model)
+        {
+            // Logic to update an existing rating and review
+            var ratingAndReview = ctx.RatingsAndReviews.Find(id);
+            if (ratingAndReview == null)
+            {
+                return NotFound("Rating and review not found");
+            }
+            mapper.Map(model, ratingAndReview);
+            ctx.SaveChanges();
+            return Ok("Rating and review updated successfully");
+        }
+        [HttpDelete("DeleteRatingAndReview/{id}")]
+        public IActionResult DeleteRatingAndReview(int id)
+        {
+            // Logic to delete a rating and review
+            var ratingAndReview = ctx.RatingsAndReviews.Find(id);
+            if (ratingAndReview == null)
+            {
+                return NotFound("Rating and review not found");
+            }
+            ctx.RatingsAndReviews.Remove(ratingAndReview);
+            ctx.SaveChanges();
+            return Ok("Rating and review deleted successfully");
+        }
     }
 }

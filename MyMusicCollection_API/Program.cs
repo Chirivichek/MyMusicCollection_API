@@ -2,7 +2,10 @@ using System.Reflection;
 using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers();
 
 string connSrt = builder.Configuration.GetConnectionString("MyMusicCollection");
 // Add services to the container.  

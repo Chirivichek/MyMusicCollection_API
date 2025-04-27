@@ -48,10 +48,15 @@ namespace MyMusicCollection_API
             CreateMap<CreateUserModel, User>();
             CreateMap<UpdateUserModel, User>();
 
-            CreateMap<GetAllRatingAndReviewModel, RatingAndReview>();
-            CreateMap<UpdateRatingAndReview, RatingAndReview>();
+            CreateMap<RatingAndReview, GetAllRatingAndReviewModel>();
+            CreateMap<CreateRatingAndReviewModel, RatingAndReview>();
+            CreateMap<UpdateRatingAndReviewModel, RatingAndReview>();
 
+            CreateMap<UserCollection, GetAllUserCollectionModel>()
+            .ForMember(dest => dest.AlbumName, opt => opt.MapFrom(src => src.Album != null ? src.Album.AlbumName : "Unknown Album"));
 
+            CreateMap<CreateUserCollectionModel, UserCollection>();
+            CreateMap<UpdateUserCollectionModel, UserCollection>();
         }
     }
 }
