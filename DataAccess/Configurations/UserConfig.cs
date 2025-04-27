@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using System.Reflection.Emit;
+using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,6 +19,18 @@ namespace DataAccess.Configurations
             builder
                 .HasIndex(u => u.UserName)
                 .IsUnique();
+
+            // Users (need for PlayList)
+            builder.HasData(
+                new User
+                {
+                    UserId = 1,
+                    UserName = "MusicFan",
+                    Email = "musicfan@example.com",
+                    Password = "SecurePass123",
+                    DateOfBirth = new DateTime(1990, 5, 15)
+                }
+            );
         }
     }
 }

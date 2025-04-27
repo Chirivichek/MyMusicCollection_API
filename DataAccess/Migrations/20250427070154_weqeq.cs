@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MyMusicCollection.Migrations
+namespace DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class first : Migration
+    public partial class weqeq : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -132,21 +132,21 @@ namespace MyMusicCollection.Migrations
                 name: "AlbumGenre",
                 columns: table => new
                 {
-                    AlbumsAlbumId = table.Column<int>(type: "int", nullable: false),
-                    GenresGenreId = table.Column<int>(type: "int", nullable: false)
+                    AlbumId = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlbumGenre", x => new { x.AlbumsAlbumId, x.GenresGenreId });
+                    table.PrimaryKey("PK_AlbumGenre", x => new { x.AlbumId, x.GenreId });
                     table.ForeignKey(
-                        name: "FK_AlbumGenre_Albums_AlbumsAlbumId",
-                        column: x => x.AlbumsAlbumId,
+                        name: "FK_AlbumGenre_Albums_AlbumId",
+                        column: x => x.AlbumId,
                         principalTable: "Albums",
                         principalColumn: "AlbumId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AlbumGenre_Genres_GenresGenreId",
-                        column: x => x.GenresGenreId,
+                        name: "FK_AlbumGenre_Genres_GenreId",
+                        column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "GenreId",
                         onDelete: ReferentialAction.Cascade);
@@ -233,31 +233,7 @@ namespace MyMusicCollection.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GenreTrack",
-                columns: table => new
-                {
-                    GenresGenreId = table.Column<int>(type: "int", nullable: false),
-                    TracksTrackId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GenreTrack", x => new { x.GenresGenreId, x.TracksTrackId });
-                    table.ForeignKey(
-                        name: "FK_GenreTrack_Genres_GenresGenreId",
-                        column: x => x.GenresGenreId,
-                        principalTable: "Genres",
-                        principalColumn: "GenreId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GenreTrack_Tracks_TracksTrackId",
-                        column: x => x.TracksTrackId,
-                        principalTable: "Tracks",
-                        principalColumn: "TrackId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PlaylistTrack",
+                name: "PlayListTrack",
                 columns: table => new
                 {
                     PlayListId = table.Column<int>(type: "int", nullable: false),
@@ -265,28 +241,66 @@ namespace MyMusicCollection.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PlaylistTrack", x => new { x.PlayListId, x.TrackId });
+                    table.PrimaryKey("PK_PlayListTrack", x => new { x.PlayListId, x.TrackId });
                     table.ForeignKey(
-                        name: "FK_PlaylistTrack_PlayLists_PlayListId",
+                        name: "FK_PlayListTrack_PlayLists_PlayListId",
                         column: x => x.PlayListId,
                         principalTable: "PlayLists",
                         principalColumn: "PlayListId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PlaylistTrack_Tracks_TrackId",
+                        name: "FK_PlayListTrack_Tracks_TrackId",
                         column: x => x.TrackId,
                         principalTable: "Tracks",
-                        principalColumn: "TrackId");
+                        principalColumn: "TrackId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TrackGenre",
+                columns: table => new
+                {
+                    TrackId = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TrackGenre", x => new { x.TrackId, x.GenreId });
+                    table.ForeignKey(
+                        name: "FK_TrackGenre_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "GenreId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TrackGenre_Tracks_TrackId",
+                        column: x => x.TrackId,
+                        principalTable: "Tracks",
+                        principalColumn: "TrackId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Artists",
-                columns: new[] { "ArtistId", "Biography", "Country", "bandName", "yearsOfActivity" },
+        table: "Artists",
+        columns: new[] { "ArtistId", "bandName", "Country", "yearsOfActivity", "Biography" },
+        values: new object[,]
+        {
+            { 1, "Three Days Grace", "Canada", "1997-present", "Canadian rock band formed in Norwood, Ontario." },
+            { 2, "Metallica", "USA", "1981-present", "American heavy metal band, one of the 'Big Four' of thrash metal." },
+            { 3, "Disturbed", "USA", "1994-present", "American heavy metal band from Chicago." }
+        });
+
+            migrationBuilder.InsertData(
+                table: "Albums",
+                columns: new[] { "AlbumId", "AlbumDuration", "AlbumName", "ArtistId", "Format", "Label", "ReleaseDate", "TrackCount" },
                 values: new object[,]
                 {
-                    { 1, "Canadian rock band formed in Norwood, Ontario.", "Canada", "Three Days Grace", "1997-present" },
-                    { 2, "American heavy metal band, one of the 'Big Four' of thrash metal.", "USA", "Metallica", "1981-present" },
-                    { 3, "American heavy metal band from Chicago.", "USA", "Disturbed", "1994-present" }
+                    { 1, 934, "Three Days Grace", 1, "CD", "Jive Records", new DateTime(2003, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 2, 855, "One-X", 1, "CD", "Jive Records", new DateTime(2006, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 3, 1710, "Master of Puppets", 2, "Vinyl", "Elektra Records", new DateTime(1986, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 4, 1429, "Metallica", 2, "CD", "Elektra Records", new DateTime(1991, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 5, 1029, "Ten Thousand Fists", 3, "CD", "Reprise Records", new DateTime(2005, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
+                    { 6, 988, "Immortalized", 3, "Digital", "Reprise Records", new DateTime(2015, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -307,29 +321,22 @@ namespace MyMusicCollection.Migrations
                 values: new object[] { 1, new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "musicfan@example.com", "SecurePass123", "MusicFan" });
 
             migrationBuilder.InsertData(
-                table: "Albums",
-                columns: new[] { "AlbumId", "AlbumDuration", "AlbumName", "ArtistId", "Format", "Label", "ReleaseDate", "TrackCount" },
-                values: new object[,]
-                {
-                    { 1, 934, "Three Days Grace", 1, "CD", "Jive Records", new DateTime(2003, 7, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
-                    { 2, 855, "One-X", 1, "CD", "Jive Records", new DateTime(2006, 6, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
-                    { 3, 1710, "Master of Puppets", 2, "Vinyl", "Elektra Records", new DateTime(1986, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
-                    { 4, 1429, "Metallica", 2, "CD", "Elektra Records", new DateTime(1991, 8, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
-                    { 5, 1029, "Ten Thousand Fists", 3, "CD", "Reprise Records", new DateTime(2005, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 },
-                    { 6, 988, "Immortalized", 3, "Digital", "Reprise Records", new DateTime(2015, 8, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), 4 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ArtistGenre",
-                columns: new[] { "ArtistsArtistId", "GenresGenreId" },
+                table: "AlbumGenre",
+                columns: new[] { "AlbumId", "GenreId" },
                 values: new object[,]
                 {
                     { 1, 1 },
                     { 1, 2 },
-                    { 2, 3 },
-                    { 2, 4 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 3, 3 },
                     { 3, 4 },
-                    { 3, 5 }
+                    { 4, 3 },
+                    { 4, 4 },
+                    { 5, 4 },
+                    { 5, 5 },
+                    { 6, 4 },
+                    { 6, 5 }
                 });
 
             migrationBuilder.InsertData(
@@ -369,7 +376,7 @@ namespace MyMusicCollection.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "PlaylistTrack",
+                table: "PlayListTrack",
                 columns: new[] { "PlayListId", "TrackId" },
                 values: new object[,]
                 {
@@ -378,10 +385,29 @@ namespace MyMusicCollection.Migrations
                     { 1, 23 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "TrackGenre",
+                columns: new[] { "GenreId", "TrackId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 1, 2 },
+                    { 2, 2 },
+                    { 3, 9 },
+                    { 4, 9 },
+                    { 3, 13 },
+                    { 4, 13 },
+                    { 4, 17 },
+                    { 5, 17 },
+                    { 4, 23 },
+                    { 5, 23 }
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_AlbumGenre_GenresGenreId",
+                name: "IX_AlbumGenre_GenreId",
                 table: "AlbumGenre",
-                column: "GenresGenreId");
+                column: "GenreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Albums_ArtistId_AlbumName",
@@ -406,11 +432,6 @@ namespace MyMusicCollection.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_GenreTrack_TracksTrackId",
-                table: "GenreTrack",
-                column: "TracksTrackId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PlayLists_DateCreated",
                 table: "PlayLists",
                 column: "DateCreated");
@@ -422,8 +443,8 @@ namespace MyMusicCollection.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_PlaylistTrack_TrackId",
-                table: "PlaylistTrack",
+                name: "IX_PlayListTrack_TrackId",
+                table: "PlayListTrack",
                 column: "TrackId");
 
             migrationBuilder.CreateIndex(
@@ -435,6 +456,11 @@ namespace MyMusicCollection.Migrations
                 name: "IX_RatingsAndReviews_UserId",
                 table: "RatingsAndReviews",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TrackGenre_GenreId",
+                table: "TrackGenre",
+                column: "GenreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tracks_AlbumId",
@@ -473,22 +499,22 @@ namespace MyMusicCollection.Migrations
                 name: "ArtistGenre");
 
             migrationBuilder.DropTable(
-                name: "GenreTrack");
-
-            migrationBuilder.DropTable(
-                name: "PlaylistTrack");
+                name: "PlayListTrack");
 
             migrationBuilder.DropTable(
                 name: "RatingsAndReviews");
 
             migrationBuilder.DropTable(
+                name: "TrackGenre");
+
+            migrationBuilder.DropTable(
                 name: "UserCollections");
 
             migrationBuilder.DropTable(
-                name: "Genres");
+                name: "PlayLists");
 
             migrationBuilder.DropTable(
-                name: "PlayLists");
+                name: "Genres");
 
             migrationBuilder.DropTable(
                 name: "Tracks");

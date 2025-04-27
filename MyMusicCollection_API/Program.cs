@@ -15,7 +15,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Fix: Use builder.Services to call AddDbContext  
-builder.Services.AddDbContext<MusicCollectionBDcontext>(cfg => cfg.UseSqlServer(connSrt));
+
+builder.Services.AddDbContext<MusicCollectionBDcontext>(cfg => cfg.UseSqlServer(connSrt, b => b.MigrationsAssembly("MyMusicCollection_API")));
 
 var app = builder.Build();
 

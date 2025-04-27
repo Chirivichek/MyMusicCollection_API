@@ -2,7 +2,6 @@
 {
     public class UpdateAlbumModel
     {
-        public int AlbumId { get; set; } 
         public string AlbumName { get; set; }
         public int AlbumDuration { get; set; }
         public int TrackCount { get; set; }

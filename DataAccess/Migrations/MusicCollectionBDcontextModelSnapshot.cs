@@ -6,11 +6,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-
-
 #nullable disable
 
-namespace MyMusicCollection.Migrations
+namespace DataAccess.Migrations
 {
     [DbContext(typeof(MusicCollectionBDcontext))]
     partial class MusicCollectionBDcontextModelSnapshot : ModelSnapshot
@@ -26,17 +24,79 @@ namespace MyMusicCollection.Migrations
 
             modelBuilder.Entity("AlbumGenre", b =>
                 {
-                    b.Property<int>("AlbumsAlbumId")
+                    b.Property<int>("AlbumId")
                         .HasColumnType("int");
 
-                    b.Property<int>("GenresGenreId")
+                    b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.HasKey("AlbumsAlbumId", "GenresGenreId");
+                    b.HasKey("AlbumId", "GenreId");
 
-                    b.HasIndex("GenresGenreId");
+                    b.HasIndex("GenreId");
 
                     b.ToTable("AlbumGenre");
+
+                    b.HasData(
+                        new
+                        {
+                            AlbumId = 1,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            AlbumId = 1,
+                            GenreId = 2
+                        },
+                        new
+                        {
+                            AlbumId = 2,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            AlbumId = 2,
+                            GenreId = 2
+                        },
+                        new
+                        {
+                            AlbumId = 3,
+                            GenreId = 3
+                        },
+                        new
+                        {
+                            AlbumId = 3,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            AlbumId = 4,
+                            GenreId = 3
+                        },
+                        new
+                        {
+                            AlbumId = 4,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            AlbumId = 5,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            AlbumId = 5,
+                            GenreId = 5
+                        },
+                        new
+                        {
+                            AlbumId = 6,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            AlbumId = 6,
+                            GenreId = 5
+                        });
                 });
 
             modelBuilder.Entity("ArtistGenre", b =>
@@ -52,56 +112,9 @@ namespace MyMusicCollection.Migrations
                     b.HasIndex("GenresGenreId");
 
                     b.ToTable("ArtistGenre");
-
-                    b.HasData(
-                        new
-                        {
-                            ArtistsArtistId = 1,
-                            GenresGenreId = 1
-                        },
-                        new
-                        {
-                            ArtistsArtistId = 1,
-                            GenresGenreId = 2
-                        },
-                        new
-                        {
-                            ArtistsArtistId = 2,
-                            GenresGenreId = 3
-                        },
-                        new
-                        {
-                            ArtistsArtistId = 2,
-                            GenresGenreId = 4
-                        },
-                        new
-                        {
-                            ArtistsArtistId = 3,
-                            GenresGenreId = 4
-                        },
-                        new
-                        {
-                            ArtistsArtistId = 3,
-                            GenresGenreId = 5
-                        });
                 });
 
-            modelBuilder.Entity("GenreTrack", b =>
-                {
-                    b.Property<int>("GenresGenreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TracksTrackId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresGenreId", "TracksTrackId");
-
-                    b.HasIndex("TracksTrackId");
-
-                    b.ToTable("GenreTrack");
-                });
-
-            modelBuilder.Entity("MyMusicCollection.Entitys.Album", b =>
+            modelBuilder.Entity("DataAccess.Entities.Album", b =>
                 {
                     b.Property<int>("AlbumId")
                         .ValueGeneratedOnAdd()
@@ -214,7 +227,7 @@ namespace MyMusicCollection.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.Artist", b =>
+            modelBuilder.Entity("DataAccess.Entities.Artist", b =>
                 {
                     b.Property<int>("ArtistId")
                         .ValueGeneratedOnAdd()
@@ -245,35 +258,9 @@ namespace MyMusicCollection.Migrations
                     b.HasKey("ArtistId");
 
                     b.ToTable("Artists");
-
-                    b.HasData(
-                        new
-                        {
-                            ArtistId = 1,
-                            Biography = "Canadian rock band formed in Norwood, Ontario.",
-                            Country = "Canada",
-                            bandName = "Three Days Grace",
-                            yearsOfActivity = "1997-present"
-                        },
-                        new
-                        {
-                            ArtistId = 2,
-                            Biography = "American heavy metal band, one of the 'Big Four' of thrash metal.",
-                            Country = "USA",
-                            bandName = "Metallica",
-                            yearsOfActivity = "1981-present"
-                        },
-                        new
-                        {
-                            ArtistId = 3,
-                            Biography = "American heavy metal band from Chicago.",
-                            Country = "USA",
-                            bandName = "Disturbed",
-                            yearsOfActivity = "1994-present"
-                        });
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.Genre", b =>
+            modelBuilder.Entity("DataAccess.Entities.Genre", b =>
                 {
                     b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
@@ -321,7 +308,7 @@ namespace MyMusicCollection.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.PlayList", b =>
+            modelBuilder.Entity("DataAccess.Entities.PlayList", b =>
                 {
                     b.Property<int>("PlayListId")
                         .ValueGeneratedOnAdd()
@@ -359,7 +346,7 @@ namespace MyMusicCollection.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.RatingAndReview", b =>
+            modelBuilder.Entity("DataAccess.Entities.RatingAndReview", b =>
                 {
                     b.Property<int>("RatingAndReviewId")
                         .ValueGeneratedOnAdd()
@@ -393,7 +380,7 @@ namespace MyMusicCollection.Migrations
                     b.ToTable("RatingsAndReviews");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.Track", b =>
+            modelBuilder.Entity("DataAccess.Entities.Track", b =>
                 {
                     b.Property<int>("TrackId")
                         .ValueGeneratedOnAdd()
@@ -674,7 +661,7 @@ namespace MyMusicCollection.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.User", b =>
+            modelBuilder.Entity("DataAccess.Entities.User", b =>
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd()
@@ -718,7 +705,7 @@ namespace MyMusicCollection.Migrations
                         });
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.UserCollection", b =>
+            modelBuilder.Entity("DataAccess.Entities.UserCollection", b =>
                 {
                     b.Property<int>("UserCollectionId")
                         .ValueGeneratedOnAdd()
@@ -753,7 +740,7 @@ namespace MyMusicCollection.Migrations
                     b.ToTable("UserCollections");
                 });
 
-            modelBuilder.Entity("PlaylistTrack", b =>
+            modelBuilder.Entity("PlayListTrack", b =>
                 {
                     b.Property<int>("PlayListId")
                         .HasColumnType("int");
@@ -765,7 +752,7 @@ namespace MyMusicCollection.Migrations
 
                     b.HasIndex("TrackId");
 
-                    b.ToTable("PlaylistTrack");
+                    b.ToTable("PlayListTrack");
 
                     b.HasData(
                         new
@@ -785,54 +772,116 @@ namespace MyMusicCollection.Migrations
                         });
                 });
 
+            modelBuilder.Entity("TrackGenre", b =>
+                {
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TrackId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("TrackGenre");
+
+                    b.HasData(
+                        new
+                        {
+                            TrackId = 1,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            TrackId = 1,
+                            GenreId = 2
+                        },
+                        new
+                        {
+                            TrackId = 2,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            TrackId = 2,
+                            GenreId = 2
+                        },
+                        new
+                        {
+                            TrackId = 9,
+                            GenreId = 3
+                        },
+                        new
+                        {
+                            TrackId = 9,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            TrackId = 13,
+                            GenreId = 3
+                        },
+                        new
+                        {
+                            TrackId = 13,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            TrackId = 17,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            TrackId = 17,
+                            GenreId = 5
+                        },
+                        new
+                        {
+                            TrackId = 23,
+                            GenreId = 4
+                        },
+                        new
+                        {
+                            TrackId = 23,
+                            GenreId = 5
+                        });
+                });
+
             modelBuilder.Entity("AlbumGenre", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.Album", null)
+                    b.HasOne("DataAccess.Entities.Album", null)
                         .WithMany()
-                        .HasForeignKey("AlbumsAlbumId")
+                        .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyMusicCollection.Entitys.Genre", null)
+                    b.HasOne("DataAccess.Entities.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreId")
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ArtistGenre", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.Artist", null)
+                    b.HasOne("DataAccess.Entities.Artist", null)
                         .WithMany()
                         .HasForeignKey("ArtistsArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyMusicCollection.Entitys.Genre", null)
+                    b.HasOne("DataAccess.Entities.Genre", null)
                         .WithMany()
                         .HasForeignKey("GenresGenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GenreTrack", b =>
+            modelBuilder.Entity("DataAccess.Entities.Album", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresGenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MyMusicCollection.Entitys.Track", null)
-                        .WithMany()
-                        .HasForeignKey("TracksTrackId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MyMusicCollection.Entitys.Album", b =>
-                {
-                    b.HasOne("MyMusicCollection.Entitys.Artist", "Artist")
+                    b.HasOne("DataAccess.Entities.Artist", "Artist")
                         .WithMany("Albums")
                         .HasForeignKey("ArtistId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -841,9 +890,9 @@ namespace MyMusicCollection.Migrations
                     b.Navigation("Artist");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.PlayList", b =>
+            modelBuilder.Entity("DataAccess.Entities.PlayList", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.User", "User")
+                    b.HasOne("DataAccess.Entities.User", "User")
                         .WithMany("PlayLists")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -852,15 +901,15 @@ namespace MyMusicCollection.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.RatingAndReview", b =>
+            modelBuilder.Entity("DataAccess.Entities.RatingAndReview", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.Album", "Album")
+                    b.HasOne("DataAccess.Entities.Album", "Album")
                         .WithMany("RatingsAndReviews")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyMusicCollection.Entitys.User", "User")
+                    b.HasOne("DataAccess.Entities.User", "User")
                         .WithMany("RatingsAndReviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -871,9 +920,9 @@ namespace MyMusicCollection.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.Track", b =>
+            modelBuilder.Entity("DataAccess.Entities.Track", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.Album", "Album")
+                    b.HasOne("DataAccess.Entities.Album", "Album")
                         .WithMany("Tracks")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -882,15 +931,15 @@ namespace MyMusicCollection.Migrations
                     b.Navigation("Album");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.UserCollection", b =>
+            modelBuilder.Entity("DataAccess.Entities.UserCollection", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.Album", "Album")
+                    b.HasOne("DataAccess.Entities.Album", "Album")
                         .WithMany("UserCollections")
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyMusicCollection.Entitys.User", "User")
+                    b.HasOne("DataAccess.Entities.User", "User")
                         .WithMany("UserCollections")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -901,22 +950,37 @@ namespace MyMusicCollection.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("PlaylistTrack", b =>
+            modelBuilder.Entity("PlayListTrack", b =>
                 {
-                    b.HasOne("MyMusicCollection.Entitys.PlayList", null)
+                    b.HasOne("DataAccess.Entities.PlayList", null)
                         .WithMany()
                         .HasForeignKey("PlayListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyMusicCollection.Entitys.Track", null)
+                    b.HasOne("DataAccess.Entities.Track", null)
                         .WithMany()
                         .HasForeignKey("TrackId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.Album", b =>
+            modelBuilder.Entity("TrackGenre", b =>
+                {
+                    b.HasOne("DataAccess.Entities.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataAccess.Entities.Track", null)
+                        .WithMany()
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.Album", b =>
                 {
                     b.Navigation("RatingsAndReviews");
 
@@ -925,12 +989,12 @@ namespace MyMusicCollection.Migrations
                     b.Navigation("UserCollections");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.Artist", b =>
+            modelBuilder.Entity("DataAccess.Entities.Artist", b =>
                 {
                     b.Navigation("Albums");
                 });
 
-            modelBuilder.Entity("MyMusicCollection.Entitys.User", b =>
+            modelBuilder.Entity("DataAccess.Entities.User", b =>
                 {
                     b.Navigation("PlayLists");
 
