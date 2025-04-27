@@ -29,6 +29,20 @@ namespace MyMusicCollection_API.Controllers
             var result = mapper.Map<List<GetAllGenreModel>>(genres);
             return Ok(result);
         }
+        [HttpGet("GetGenreById/{id}")]
+        public IActionResult GetGenreById(int id)
+        {
+            // Logic to get a specific genre by ID
+            var genre = ctx.Genres
+                .Include(g => g.Albums)
+                .FirstOrDefault(g => g.GenreId == id);
+            if (genre == null)
+            {
+                return NotFound("Genre not found");
+            }
+            var result = mapper.Map<GetAllGenreModel>(genre);
+            return Ok(result);
+        }
         [HttpPost("CreateGenre")]
         public IActionResult CreateGenre(CreateGenreModel model)
         {

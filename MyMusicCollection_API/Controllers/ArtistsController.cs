@@ -31,6 +31,20 @@ namespace MyMusicCollection_API.Controllers
             var result = mapper.Map<List<GetAllArtistModel>>(artists);
             return Ok(result);
         }
+        [HttpGet("GetArtistById/{id}")]
+        public IActionResult GetArtistById(int id)
+        {
+            // Logic to get a specific artist by ID
+            var artist = ctx.Artists
+                .Include(a => a.Albums)
+                .FirstOrDefault(a => a.ArtistId == id);
+            if (artist == null)
+            {
+                return NotFound("Artist not found");
+            }
+            var result = mapper.Map<GetAllArtistModel>(artist);
+            return Ok(result);
+        }
 
         [HttpPost("CreateArtist")]
         public IActionResult CreateArtist(CreateArtistModel model)

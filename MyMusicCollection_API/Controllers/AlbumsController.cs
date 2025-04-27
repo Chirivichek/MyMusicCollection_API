@@ -62,6 +62,27 @@ namespace MyMusicCollection_API.Controllers
             ctx.SaveChanges();
             return Created();
         }
+        [HttpPost("AddTrackToAlbum/{albumId}")]
+        public IActionResult AddTrackToAlbum(int albumId, UpdateTrackModel model)
+        {
+            var album = ctx.Albums
+                .Include(a => a.Tracks)
+                .FirstOrDefault(a => a.AlbumId == albumId);
+            if (album == null)
+            {
+                return NotFound("Album not found");
+            }
+
+            var newTrack = mapper.Map<Track>(model);
+            newTrack.AlbumId = album.AlbumId;
+            album.Tracks.Add(newTrack);
+
+            album.TrackCount = album.Tracks.Count;
+            album.AlbumDuration = album.Tracks.Sum(t => t.Duration);
+
+            ctx.SaveChanges();
+            return Ok("Track added to album successfully");
+        }
         [HttpPut("UpdateAlbum")]
         public IActionResult UpdateAlbum(int id,UpdateAlbumModel model)
         {

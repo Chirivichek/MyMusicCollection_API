@@ -30,6 +30,21 @@ namespace MyMusicCollection_API.Controllers
             var result = mapper.Map<List<GetAllPlaylistModel>>(playlists);
             return Ok(result);
         }
+        [HttpGet("GetPlaylistById/{id}")]
+        public IActionResult GetPlaylistById(int id)
+        {
+            // Logic to get a specific playlist by ID
+            var playlist = ctx.PlayLists
+                .Include(p => p.Tracks)
+                .Include(p => p.User)
+                .FirstOrDefault(p => p.PlayListId == id);
+            if (playlist == null)
+            {
+                return NotFound("Playlist not found");
+            }
+            var result = mapper.Map<GetAllPlaylistModel>(playlist);
+            return Ok(result);
+        }
         [HttpPost("GetAllTracksInPlaylist")]
         public IActionResult GetAllTracksInPlaylist(int playlistId)
         {
@@ -41,7 +56,7 @@ namespace MyMusicCollection_API.Controllers
             {
                 return NotFound("Playlist not found");
             }
-            var result = mapper.Map<List<GetAllTracksInPlaylist>>(playlist.Tracks);
+            var result = mapper.Map<List<GetAllTracksInPlaylistModel>>(playlist.Tracks);
             return Ok(result);
         }
 
@@ -67,6 +82,47 @@ namespace MyMusicCollection_API.Controllers
             ctx.SaveChanges();
             return Ok("Playlist updated successfully");
         }
+        [HttpPost("AddTrackToPlaylist/{PlaylistId}")]
+        public IActionResult AddTrackToPlaylist(int PlaylistId, int TrackId)
+        {
+            // Logic to add a track to a playlist
+            var playlist = ctx.PlayLists
+                .Include(p => p.Tracks)
+                .FirstOrDefault(p => p.PlayListId == PlaylistId);
+            if (playlist == null)
+            {
+                return NotFound("Playlist not found");
+            }
+            var track = ctx.Tracks.Find(TrackId);
+            if (track == null)
+            {
+                return NotFound("Track not found");
+            }
+            playlist.Tracks.Add(track);
+            ctx.SaveChanges();
+            return Ok("Track added to playlist successfully");
+        }
+        [HttpPost("DeleteTrackInPlaylist")]
+        public IActionResult DeleteTrackInPlaylist(int PlaylistId, int TrackId)
+        {
+            // Logic to delete a track from a playlist
+            var playlist = ctx.PlayLists
+                .Include(p => p.Tracks)
+                .FirstOrDefault(p => p.PlayListId == PlaylistId);
+            if (playlist == null)
+            {
+                return NotFound("Playlist not found");
+            }
+            var track = playlist.Tracks.FirstOrDefault(t => t.TrackId == TrackId);
+            if (track == null)
+            {
+                return NotFound("Track not found in the playlist");
+            }
+            playlist.Tracks.Remove(track);
+            ctx.SaveChanges();
+            return Ok("Track removed from playlist successfully");
+        }
+
         [HttpDelete("DeletePlaylist/{id}")]
         public IActionResult DeletePlaylist(int id)
         {
