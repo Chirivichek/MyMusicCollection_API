@@ -19,9 +19,7 @@ namespace MyMusicCollection_API
             .ConvertUsing(g => g.GenreName);
 
             CreateMap<RatingAndReview, int>()
-            .ConvertUsing(r => r.Rating);
-
-           
+            .ConvertUsing(r => r.Rating);  
 
             CreateMap<UpdateTrackModel, Track>();
             CreateMap<Track, GetAllTracksInPlaylistModel>();

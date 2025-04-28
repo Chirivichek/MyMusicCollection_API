@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace DataAccess.Migrations
+namespace MyMusicCollection_API.Migrations
 {
     /// <inheritdoc />
-    public partial class weqeq : Migration
+    public partial class finalmogration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -279,16 +279,6 @@ namespace DataAccess.Migrations
                         principalColumn: "TrackId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-        table: "Artists",
-        columns: new[] { "ArtistId", "bandName", "Country", "yearsOfActivity", "Biography" },
-        values: new object[,]
-        {
-            { 1, "Three Days Grace", "Canada", "1997-present", "Canadian rock band formed in Norwood, Ontario." },
-            { 2, "Metallica", "USA", "1981-present", "American heavy metal band, one of the 'Big Four' of thrash metal." },
-            { 3, "Disturbed", "USA", "1994-present", "American heavy metal band from Chicago." }
-        });
 
             migrationBuilder.InsertData(
                 table: "Albums",

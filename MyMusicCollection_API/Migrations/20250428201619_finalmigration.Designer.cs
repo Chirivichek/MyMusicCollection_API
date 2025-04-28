@@ -4,16 +4,19 @@ using DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace DataAccess.Migrations
+namespace MyMusicCollection_API.Migrations
 {
     [DbContext(typeof(MusicCollectionBDcontext))]
-    partial class MusicCollectionBDcontextModelSnapshot : ModelSnapshot
+    [Migration("20250428201619_finalmogration")]
+    partial class finalmogration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
