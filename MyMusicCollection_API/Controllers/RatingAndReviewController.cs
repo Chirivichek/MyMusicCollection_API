@@ -48,15 +48,6 @@ namespace MyMusicCollection_API.Controllers
             var result = mapper.Map<GetAllRatingAndReviewModel>(ratingAndReview);
             return Ok(result);
         }
-        //[HttpPost("CreateRatingAndReview")]
-        //public IActionResult CreateRatingAndReview(CreateRatingAndReviewModel model)
-        //{
-        //    // Logic to create a new rating and review
-        //    var ratingAndReview = mapper.Map<RatingAndReview>(model);
-        //    ctx.RatingsAndReviews.Add(ratingAndReview);
-        //    ctx.SaveChanges();
-        //    return Ok("Rating and review created successfully");
-        //}
 
         [HttpPost("CreateRatingAndReview")]
         public IActionResult CreateRatingAndReview(int UserId, int AlbumId, CreateRatingAndReviewModel model)
